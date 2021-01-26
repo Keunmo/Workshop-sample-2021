@@ -23,6 +23,7 @@ class TodoListViewAdapter (context: Context, var resource: Int, var items: Mutab
         val view : View = layoutInflater.inflate(resource , null )
         val title : TextView = view.findViewById(R.id.listTitle)
         val description : TextView = view.findViewById(R.id.listDesciption)
+        var dateDisplay : TextView = view.findViewById(R.id.dateDisplay)
         val edit : Button = view.findViewById(R.id.editBtn)
         val delete : Button = view.findViewById(R.id.delBtn)
 
@@ -34,6 +35,7 @@ class TodoListViewAdapter (context: Context, var resource: Int, var items: Mutab
         // Load title and description to single ListView item
         title.text = todo.title
         description.text = todo.description
+        dateDisplay.text = todo.date
         if (todo.finished) {
             title.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
         }
