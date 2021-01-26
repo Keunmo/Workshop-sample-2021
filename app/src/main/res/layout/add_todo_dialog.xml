@@ -52,14 +52,51 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"/>
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginTop="10dp"
-        android:text="직접 추가해 보세요." />
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/selectedDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/yyyy_mm_dd"/>
 
+        <TextView
+            android:id="@+id/selectedTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/am_tt_mm"/>
+
+    </LinearLayout>>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/setDateBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/set_date"/>
+
+        <Button
+            android:id="@+id/setTimeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/set_time"/>
+    </LinearLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -68,13 +105,22 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
+    <CheckBox
+        android:id="@+id/finishedCheckbox"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
-        android:text="직접 추가해 보세요." />
+        android:text="@string/check_if_finished"/>
+
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="20dp"-->
+<!--        android:layout_marginEnd="20dp"-->
+<!--        android:layout_marginTop="10dp"-->
+<!--        android:text="직접 추가해 보세요." />-->
 
 
 

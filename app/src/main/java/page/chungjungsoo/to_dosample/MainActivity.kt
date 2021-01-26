@@ -1,5 +1,7 @@
 package page.chungjungsoo.to_dosample
 
+import android.app.DatePickerDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Build
@@ -11,14 +13,16 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsetsController
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.add_todo_dialog.*
 import page.chungjungsoo.to_dosample.todo.Todo
 import page.chungjungsoo.to_dosample.todo.TodoDatabaseHelper
 import page.chungjungsoo.to_dosample.todo.TodoListViewAdapter
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     var dbHandler : TodoDatabaseHelper? = null
@@ -57,6 +61,11 @@ class MainActivity : AppCompatActivity() {
             // Get elements from custom dialog layout (add_todo_dialog.xml)
             val titleToAdd = dialogView.findViewById<EditText>(R.id.todoTitle)
             val desciptionToAdd = dialogView.findViewById<EditText>(R.id.todoDescription)
+//            val selectedDate = dialogView.findViewById<TextView>(R.id.selectedDate)
+//            val selectedTime = dialogView.findViewById<TextView>(R.id.selectedTime)
+//            val setDate = dialogView.findViewById<Button>(R.id.setDateBtn)
+//            val setTime = dialogView.findViewById<Button>(R.id.setTimeBtn)
+//            var cal = Calendar.getInstance()
 
             // Add InputMethodManager for auto keyboard popup
             val ime = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -66,7 +75,6 @@ class MainActivity : AppCompatActivity() {
 
             // Show keyboard when AlertDialog is inflated
             ime.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
-
 
             // Add positive button and negative button for AlertDialog.
             // Pressing the positive button: Add data to the database and also add them in listview and update.
@@ -122,6 +130,18 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             })
+
+            setDateBtn.setOnClickListener {
+                showDatePicker()
+            }
         }
+    }
+
+    private fun showDatePicker() {
+        val cal = Calendar.getInstance()
+        DatePickerDialog(this,
+                DatePickerDialog.OnDateSetListener{
+                    datePicker, y, m, d -> Toast.makeText(this, "$y-$m-$d", Toast.LENGTH_SHORT).show() },
+                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)).show()
     }
 }
