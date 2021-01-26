@@ -10,10 +10,10 @@
     <string name="finished">Finished</string>
     <string name="edit">Edit</string>
     <string name="x">x</string>
-    <string name="check_if_finished">Check if finished.</string>
     <string name="set_date">set date</string>
     <string name="set_time">set time</string>
     <string name="yyyy_mm_dd">yyyy-mm-dd</string>
-    <string name="am_tt_mm">AM tt:mm</string>
+    <string name="tt_mm">tt:mm</string>
+    <string name="check_if_finished">Check if finished</string>
 
 </resources>

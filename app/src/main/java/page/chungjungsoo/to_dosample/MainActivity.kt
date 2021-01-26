@@ -2,6 +2,7 @@ package page.chungjungsoo.to_dosample
 
 import android.app.DatePickerDialog
 import android.app.Dialog
+import android.app.TimePickerDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Build
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.add_todo_dialog.*
 import page.chungjungsoo.to_dosample.todo.Todo
 import page.chungjungsoo.to_dosample.todo.TodoDatabaseHelper
 import page.chungjungsoo.to_dosample.todo.TodoListViewAdapter
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -60,12 +62,7 @@ class MainActivity : AppCompatActivity() {
 
             // Get elements from custom dialog layout (add_todo_dialog.xml)
             val titleToAdd = dialogView.findViewById<EditText>(R.id.todoTitle)
-            val desciptionToAdd = dialogView.findViewById<EditText>(R.id.todoDescription)
-//            val selectedDate = dialogView.findViewById<TextView>(R.id.selectedDate)
-//            val selectedTime = dialogView.findViewById<TextView>(R.id.selectedTime)
-//            val setDate = dialogView.findViewById<Button>(R.id.setDateBtn)
-//            val setTime = dialogView.findViewById<Button>(R.id.setTimeBtn)
-//            var cal = Calendar.getInstance()
+            val descriptionToAdd = dialogView.findViewById<EditText>(R.id.todoDescription)
 
             // Add InputMethodManager for auto keyboard popup
             val ime = applicationContext.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -76,6 +73,45 @@ class MainActivity : AppCompatActivity() {
             // Show keyboard when AlertDialog is inflated
             ime.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
 
+            val cal = Calendar.getInstance()
+
+            val selectedDate = dialogView.findViewById<TextView>(R.id.selectedDate)
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+            selectedDate.text = dateFormat.format(cal.time)
+
+            val selectedTime = dialogView.findViewById<TextView>(R.id.selectedTime)
+            val timeFormat = SimpleDateFormat("HH:mm")
+            selectedTime.text = timeFormat.format(cal.time)
+
+            val setDateBtn = dialogView.findViewById<Button>(R.id.setDateBtn)
+            val setTimeBtn = dialogView.findViewById<Button>(R.id.setTimeBtn)
+
+            val finishedBox = dialogView.findViewById<CheckBox>(R.id.finishedCheckbox)
+//            var finished : Boolean = false
+//            var dateMemory = mutableListOf(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, cal.get(Calendar.DATE))
+//            selectedDate.text = dateMemory[0].toString()+"-"+dateMemory[1].toString()+"-"+dateMemory[2].toString()
+            fun setDate(y:Int,m:Int,d:Int) {
+                cal.set(Calendar.YEAR,y)
+                cal.set(Calendar.MONTH,m)
+                cal.set(Calendar.DATE,d)
+                selectedDate.text = dateFormat.format(cal.time)
+            }
+            fun setTime(H:Int,m:Int){
+                cal.set(Calendar.HOUR,H)
+                cal.set(Calendar.MINUTE,m)
+                selectedTime.text = timeFormat.format(cal.time)
+            }
+            setDateBtn.setOnClickListener {
+                DatePickerDialog(this, { _, y, m, d -> setDate(y,m,d) }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)).show()
+            }
+            setTimeBtn.setOnClickListener {
+                TimePickerDialog(this, { _, h, m -> setTime(h,m) }, cal.get(Calendar.HOUR), cal.get(Calendar.MINUTE), true).show()
+            }
+//            finishedBox.setOnClickListener{
+//                finished = finishedBox.isChecked
+//            }
+
+
             // Add positive button and negative button for AlertDialog.
             // Pressing the positive button: Add data to the database and also add them in listview and update.
             // Pressing the negative button: Do nothing. Close the AlertDialog
@@ -85,8 +121,10 @@ class MainActivity : AppCompatActivity() {
                         // Add item to the database
                         val todo = Todo(
                             titleToAdd.text.toString(),
-                            desciptionToAdd.text.toString(),
-                            false
+                            descriptionToAdd.text.toString(),
+                            selectedDate.text.toString(),
+                            selectedTime.text.toString(),
+                            finishedBox.isChecked
                         )
                         dbHandler!!.addTodo(todo)
 
@@ -130,18 +168,6 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
             })
-
-            setDateBtn.setOnClickListener {
-                showDatePicker()
-            }
         }
-    }
-
-    private fun showDatePicker() {
-        val cal = Calendar.getInstance()
-        DatePickerDialog(this,
-                DatePickerDialog.OnDateSetListener{
-                    datePicker, y, m, d -> Toast.makeText(this, "$y-$m-$d", Toast.LENGTH_SHORT).show() },
-                cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DATE)).show()
     }
 }

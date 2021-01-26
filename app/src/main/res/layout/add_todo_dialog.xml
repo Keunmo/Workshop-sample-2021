@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            android:text="@string/am_tt_mm"/>
+            android:text="@string/tt_mm"/>
 
     </LinearLayout>>
 
@@ -112,7 +112,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="10dp"
-        android:text="@string/check_if_finished"/>
+        android:hint="@string/check_if_finished"/>
 
 <!--    <TextView-->
 <!--        android:layout_width="match_parent"-->
